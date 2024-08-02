@@ -1,24 +1,41 @@
 "use client";
-import { SignInformSchema, SignUpformSchema } from "@/lib/schema/userForm";
+import axios from "axios";
+import { SignUpformSchema } from "@/lib/schema/userForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { useToast } from "@/components/ui/use-toast";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
-import LoginInput from "@/components/custom/input/login-input";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import google from "@/public/google.png";
 import Link from "next/link";
 import SignUpInput from "./custom/input/signup-input";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const { toast } = useToast();
+  const router = useRouter();
+  const [isLoading, setisLoading] = useState(false);
   const form = useForm<z.infer<typeof SignUpformSchema>>({
     resolver: zodResolver(SignUpformSchema),
     defaultValues: {},
   });
   const onSubmit = async (values: z.infer<typeof SignUpformSchema>) => {
-    console.log(values);
+    setisLoading(true);
+    axios
+      .post("/api/register", values)
+      .catch((error) => {
+        toast({
+          title: `${error}`,
+        });
+      })
+      .finally(() => {
+        toast({
+          title: `User Register Successfully`,
+        });
+        setisLoading(false);
+        router.push("/auth/users/sign-in");
+      });
   };
   return (
     <div className="w-full h-screen flex items-center justify-center">
@@ -70,8 +87,11 @@ const RegisterForm = () => {
                 label="Mobile Number"
                 type="number"
               />
-              <Button className="w-full mt-4 bg-bittersweet-500 hover:bg-bittersweet-600">
-                Login
+              <Button
+                disabled={isLoading}
+                className="w-full mt-4 bg-bittersweet-500 hover:bg-bittersweet-600"
+              >
+                Sign Up
               </Button>
             </form>
             <p className="text-[14px] mt-4 text-center">

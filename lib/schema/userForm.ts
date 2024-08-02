@@ -9,5 +9,5 @@ export const SignUpformSchema = z.object({
   password: z.string(),
   Cpassword: z.string(),
   fullName: z.string().max(50),
-  phoneNumber: z.number().min(10).max(10),
+  phoneNumber: z.string().min(10).max(10),
 });

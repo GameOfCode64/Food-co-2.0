@@ -1,5 +1,6 @@
 "use client";
 import { SignInformSchema } from "@/lib/schema/userForm";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -10,14 +11,30 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import google from "@/public/google.png";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const UserLoginForm = () => {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof SignInformSchema>>({
     resolver: zodResolver(SignInformSchema),
     defaultValues: {},
   });
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
-    console.log(values);
+    signIn("credentials", {
+      ...values,
+      redirect: false,
+    }).then((callback) => {
+      if (callback?.error) {
+        toast({
+          title: `Invalid Email or Password`,
+        });
+      }
+      if (callback?.ok && !callback?.error) {
+        toast({
+          title: `Login Success`,
+        });
+      }
+    });
   };
   return (
     <div className="w-full h-screen flex items-center justify-center">
