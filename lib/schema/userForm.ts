@@ -11,3 +11,10 @@ export const SignUpformSchema = z.object({
   fullName: z.string().max(50),
   phoneNumber: z.string().min(10).max(10),
 });
+
+export const UpdateProfile = z.object({
+  name: z.string(),
+  email: z.string(),
+  phoneNumber: z.string(),
+  address: z.string(),
+});

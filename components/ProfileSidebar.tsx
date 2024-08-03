@@ -11,7 +11,7 @@ const ProfileSidebar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="md:block hidden w-[220px] bg-white">
+    <div className="md:block hidden min-w-[220px] bg-white">
       <div className="flex flex-col items-center  py-8  ">
         <Link
           href="/"
@@ -42,7 +42,7 @@ const ProfileSidebar = () => {
             ))}
             <p
               onClick={() => signOut()}
-              className="flex cursor-pointer hover:opacity-90 items-center justify-normal px-4 bg-bittersweet-500 py-2 rounded-md text-white"
+              className="flex cursor-pointer  items-center justify-normal px-4 bg-bittersweet-500/80 py-2 rounded-md text-white"
             >
               <Power size={17} className="mr-3" />
               Logout
