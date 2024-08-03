@@ -2,7 +2,7 @@
 import { SignInformSchema } from "@/lib/schema/userForm";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
@@ -11,31 +11,73 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import google from "@/public/google.png";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const UserLoginForm = () => {
+  // Hooks
   const { toast } = useToast();
+  const session = useSession();
+  const router = useRouter();
+  const [isLoading, setisLoading] = useState(false);
+
+  // check User login or not
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
+
+  // login function
   const form = useForm<z.infer<typeof SignInformSchema>>({
     resolver: zodResolver(SignInformSchema),
     defaultValues: {},
   });
+  // login using email and password
   const onSubmit = async (values: z.infer<typeof SignInformSchema>) => {
+    setisLoading(true);
     signIn("credentials", {
       ...values,
       redirect: false,
-    }).then((callback) => {
-      if (callback?.error) {
-        toast({
-          title: `Invalid Email or Password`,
-        });
-      }
-      if (callback?.ok && !callback?.error) {
-        toast({
-          title: `Login Success`,
-        });
-      }
-    });
+    })
+      .then((callback) => {
+        if (callback?.error) {
+          toast({
+            title: `Invalid Email or Password`,
+          });
+        }
+        if (callback?.ok && !callback?.error) {
+          toast({
+            title: `Login Success`,
+          });
+        }
+      })
+      .finally(() => {
+        setisLoading(false);
+        router.push("/");
+      });
   };
+  // Google with Login
+  function SocialAction() {
+    setisLoading(false);
+    signIn("google", { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast({
+            title: `Invalid Email or Password`,
+          });
+        }
+        if (callback?.ok && !callback?.error) {
+          toast({
+            title: `Login Success`,
+          });
+        }
+      })
+      .finally(() => {
+        setisLoading(false);
+        router.push("/");
+      });
+  }
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="md:w-[400px] md:p-0 px-4 w-full bg-[#f5f7f7] shadow-sm">
@@ -65,7 +107,10 @@ const UserLoginForm = () => {
                 label="Password"
                 type="password"
               />
-              <Button className="w-full mt-4 bg-bittersweet-500 hover:bg-bittersweet-600">
+              <Button
+                disabled={isLoading}
+                className="w-full mt-4 bg-bittersweet-500 hover:bg-bittersweet-600"
+              >
                 Login
               </Button>
             </form>
@@ -74,7 +119,10 @@ const UserLoginForm = () => {
               or
               <span className="w-full h-[1px] bg-[#ccc]" />
             </div>
-            <button className="py-2 rounded-md px-4 my-3 flex items-center hover:bg-[#00000018] justify-normal font-semibold bg-[#eeeeee] text-sm">
+            <button
+              onClick={() => SocialAction()}
+              className="py-2 rounded-md px-4 my-3 flex items-center hover:bg-[#00000018] justify-normal font-semibold bg-[#eeeeee] text-sm"
+            >
               <Image
                 src={google}
                 alt="Google"

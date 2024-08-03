@@ -1,10 +1,16 @@
+import getCurrentUser from "@/actions/getUser";
 import Navbar from "@/components/Navbar";
 import React from "react";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const layout = async ({ children }: { children: React.ReactNode }) => {
+  const currentUser = await getCurrentUser();
+  let img = currentUser?.image;
+  if (img === null) {
+    img = "";
+  }
   return (
     <>
-      <Navbar />
+      <Navbar imgurl={img || ""} />
       {children}
     </>
   );

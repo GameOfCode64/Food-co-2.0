@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  fullName     String?
-  email        String?   @unique
-  hashPassword String?
-  phoneNumber  String?
-  emailVarifed DateTime?
-  image        String?
-  address      String?
-  createAt     DateTime  @default(now())
-  updateAt     DateTime  @updatedAt
-  account      Account[]
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  hashPassword  String?
+  phoneNumber   String?
+  emailVerified DateTime?
+  image         String?
+  address       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
 }
 
 model Account {
@@ -34,7 +34,7 @@ model Account {
   scope             String?
   id_token          String? @db.String
   session_state     String?
-  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }

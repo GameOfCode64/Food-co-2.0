@@ -1,10 +1,19 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import logo from "@/public/soup.png";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { BadgePercent, LifeBuoy, Search, ShoppingBag } from "lucide-react";
-const Navbar = () => {
+import { User } from "@prisma/client";
+import { useSession } from "next-auth/react";
+
+interface NavbarProps {
+  imgurl: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
+  const session = useSession();
   const count = 0;
   return (
     <nav className="w-full h-[80px] shadow-md">
@@ -41,11 +50,27 @@ const Navbar = () => {
             </span>
             <ShoppingBag />
           </Link>
-          <Link href="/auth">
-            <Button className=" rounded-3xl px-6 bg-bittersweet-500 hover:bg-bittersweet-600">
-              Sign In
-            </Button>
-          </Link>
+          {session.status === "authenticated" ? (
+            <>
+              <Link href="">
+                <Image
+                  src={imgurl}
+                  alt="profile_Image"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/auth">
+                <Button className=" rounded-3xl px-6 bg-bittersweet-500 hover:bg-bittersweet-600">
+                  Sign In
+                </Button>
+              </Link>
+            </>
+          )}
         </ul>
       </div>
     </nav>
