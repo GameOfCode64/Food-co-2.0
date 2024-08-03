@@ -52,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
           </Link>
           {session.status === "authenticated" ? (
             <>
-              <Link href="">
+              <Link href="/user/orders">
                 <Image
                   src={imgurl}
                   alt="profile_Image"
