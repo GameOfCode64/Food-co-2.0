@@ -9,17 +9,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
-import { SignInformSchema } from "@/lib/form-schemas";
+import { form1 } from "@/lib/form-schemas";
 
 interface CustominputProps {
-  control: Control<z.infer<typeof SignInformSchema>>;
-  name: FieldPath<z.infer<typeof SignInformSchema>>;
+  control: Control<z.infer<typeof form1>>;
+  name: FieldPath<z.infer<typeof form1>>;
   placeholder: string;
   label: string;
   type: string;
 }
 
-const LoginInput = ({
+const Form1Input = ({
   control,
   name,
   placeholder,
@@ -36,9 +36,9 @@ const LoginInput = ({
           <FormControl>
             <Input
               placeholder={placeholder}
-              {...field}
               type={type}
-              className="my-4 w-full focus:ring-[#FF0000] focus-visible:ring-1 focus-visible:ring-bittersweet-500 rounded-mdprim-input"
+              {...field}
+              className="my-4 w-full focus:ring-[#FF0000] focus-visible:ring-1 focus-visible:ring-bittersweet-500 rounded-md"
             />
           </FormControl>
           <FormMessage />
@@ -48,4 +48,4 @@ const LoginInput = ({
   );
 };
 
-export default LoginInput;
+export default Form1Input;

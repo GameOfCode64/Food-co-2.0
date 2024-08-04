@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { SignUpformSchema } from "@/lib/schema/userForm";
+import { SignUpformSchema } from "@/lib/form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import React, { useState } from "react";

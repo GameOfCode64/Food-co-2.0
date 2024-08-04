@@ -1,5 +1,5 @@
 "use client";
-import { SignInformSchema } from "@/lib/schema/userForm";
+import { SignInformSchema } from "@/lib/form-schemas";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";

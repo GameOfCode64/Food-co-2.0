@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { UpdateProfile } from "@/lib/schema/userForm";
+import { UpdateProfile } from "@/lib/form-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

@@ -18,3 +18,12 @@ export const UpdateProfile = z.object({
   phoneNumber: z.string(),
   address: z.string(),
 });
+
+// * Restaurant Form Schemas
+
+export const form1 = z.object({
+  name: z.string(),
+  email: z.string(),
+  phoneNumber: z.string(),
+  address: z.string(),
+});

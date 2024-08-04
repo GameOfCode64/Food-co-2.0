@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
-import { SignUpformSchema } from "@/lib/schema/userForm";
+import { SignUpformSchema } from "@/lib/form-schemas";
 
 interface CustominputProps {
   control: Control<z.infer<typeof SignUpformSchema>>;
