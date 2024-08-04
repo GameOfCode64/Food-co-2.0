@@ -54,7 +54,10 @@ const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
             <>
               <Link href="/user/orders">
                 <Image
-                  src={imgurl}
+                  src={
+                    imgurl ||
+                    "https://firebasestorage.googleapis.com/v0/b/finneltry.appspot.com/o/avatar.png?alt=media&token=55331315-4afd-41c7-932b-3ddbac1da80f"
+                  }
                   alt="profile_Image"
                   width={40}
                   height={40}
