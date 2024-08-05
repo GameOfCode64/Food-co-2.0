@@ -67,8 +67,11 @@ const StartRestaurantCard: React.FC = () => {
           <>
             <Button
               onClick={handleNext}
-              className="w-36 rounded-3xl bg-bittersweet-500 hover:bg-bittersweet-500/80"
-              disabled={currentSlide === slides.length - 1}
+              className={cn(
+                currentSlide === slides.length - 1
+                  ? "hidden"
+                  : "w-36 rounded-3xl bg-bittersweet-500 hover:bg-bittersweet-500/80"
+              )}
             >
               Next
             </Button>

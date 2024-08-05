@@ -22,3 +22,18 @@ export const NavLinks = [
     icon: Utensils,
   },
 ];
+
+export const idList = [
+  {
+    name: "Aadhar Card",
+    value: "Aadhar Card",
+  },
+  {
+    name: "Pan Card",
+    value: "Pan Card",
+  },
+  {
+    name: "Driving Licence",
+    value: "Driving Licence",
+  },
+];

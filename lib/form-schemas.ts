@@ -27,3 +27,8 @@ export const form1 = z.object({
   phoneNumber: z.string(),
   address: z.string(),
 });
+
+export const form2 = z.object({
+  idName: z.string(),
+  idImage: z.string(),
+});

@@ -37,7 +37,7 @@ const Form1 = () => {
   };
   return (
     <div className="w-full flex justify-center items-center">
-      <div className="md:w-[650px]">
+      <div className="md:w-[650px] w-full">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
