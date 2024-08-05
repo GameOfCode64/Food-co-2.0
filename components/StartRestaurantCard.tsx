@@ -6,6 +6,7 @@ import GetStarted from "./restaurant/GetStarted";
 import Form1 from "./restaurant/Form1";
 import Form2 from "./restaurant/Form2";
 import Form3 from "./restaurant/Form3";
+import { useRouter } from "next/navigation";
 
 const slides = [
   {
@@ -26,8 +27,13 @@ const slides = [
   },
 ];
 
-const StartRestaurantCard: React.FC = () => {
+const StartRestaurantCard = ({ email }: { email: string }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const router = useRouter();
+
+  if (email !== "") {
+    router.push("/restaurant/dashboard");
+  }
 
   const handleNext = () => {
     if (currentSlide < slides.length - 1) {
