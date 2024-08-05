@@ -89,16 +89,18 @@ model Item {
 }
 
 model Restaurant {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  phone     String
-  location  String
-  menu      Menu[]
-  ownerId   String   @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  email        String?  @unique
+  phone        String?
+  location     String?
+  identityName String?
+  identityUrl  String?
+  menu         Menu[]
+  ownerId      String   @db.ObjectId
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  owner        User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
 model Menu {

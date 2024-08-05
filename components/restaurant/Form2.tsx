@@ -36,7 +36,7 @@ const Form2 = () => {
   const onSubmit = async (values: z.infer<typeof form2>) => {
     setisLoading(true);
     axios
-      .post("/api/restaurant/id", values)
+      .post("/api/restaurant/upload", values)
       .catch((error) => {
         toast({
           title: `${error}`,

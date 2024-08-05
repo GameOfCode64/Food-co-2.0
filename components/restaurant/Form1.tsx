@@ -58,14 +58,14 @@ const Form1 = () => {
               label="Email"
             />
             <Form1Input
-              name="name"
+              name="phoneNumber"
               type="text"
               placeholder="+91 1234567890"
               control={form.control}
               label="Phone Number"
             />
             <Form1Input
-              name="name"
+              name="address"
               type="text"
               placeholder="Delhi"
               control={form.control}

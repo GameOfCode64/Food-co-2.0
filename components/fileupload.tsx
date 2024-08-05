@@ -14,8 +14,13 @@ export const Fileupload = ({ onChange, value, endpoint }: FileUplodeProps) => {
   const fileType = value?.split(".").pop();
   if (value && fileType !== "pdf") {
     return (
-      <div className="relative h-20 w-20">
-        <Image fill src={value} alt="upload" className="rounded-full" />
+      <div className="relative h-[40vh] w-full">
+        <Image
+          fill
+          src={value}
+          alt="upload"
+          className="w-full h-full object-contain"
+        />
         <button
           type="button"
           onClick={() => onChange("")}
