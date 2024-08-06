@@ -1,4 +1,14 @@
-import { Heart, Soup, User, Utensils } from "lucide-react";
+import { Label } from "@radix-ui/react-label";
+import {
+  Heart,
+  History,
+  LayoutDashboard,
+  Logs,
+  Pizza,
+  Soup,
+  User,
+  Utensils,
+} from "lucide-react";
 
 export const NavLinks = [
   {
@@ -35,5 +45,33 @@ export const idList = [
   {
     name: "Driving Licence",
     value: "Driving Licence",
+  },
+];
+
+export const sidebar = [
+  {
+    label: "Dashboard",
+    href: "/restaurant/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "View Orders",
+    href: "/restaurant/view-orders",
+    icon: Logs,
+  },
+  {
+    label: "Order History",
+    href: "/restaurant/order-history",
+    icon: History,
+  },
+  {
+    label: "View Items",
+    href: "/restaurant/view-items",
+    icon: Soup,
+  },
+  {
+    label: "Add Items",
+    href: "/restaurant/add-items",
+    icon: Pizza,
   },
 ];
