@@ -10,8 +10,8 @@ import { Button } from "../ui/button";
 const RestaurantSidebar = ({ name }: { name: string }) => {
   const pathName = usePathname();
   return (
-    <aside className="hidden md:flex h-screen shadow-sm w-[270px] bg-[#eeeeee]">
-      <div className="flex flex-col px-4 h-full py-6 w-full items-center justify-between">
+    <aside className="hidden md:flex h-screen w-full shadow-sm max-w-[270px] bg-[#eeeeee]">
+      <div className="flex flex-col px-4 h-full py-8 w-full items-center justify-between">
         <div className="space-y-1 w-full">
           {sidebar.map((link, index) => (
             <Link

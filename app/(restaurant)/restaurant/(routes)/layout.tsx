@@ -5,7 +5,7 @@ import getRestaurant from "@/actions/getRestaurant";
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const restaurant = await getRestaurant();
   return (
-    <div className="flex flex-row space-x-5">
+    <div className="flex flex-row md:space-x-5">
       <RestaurantSidebar name={restaurant?.name || ""} />
       {children}
     </div>
