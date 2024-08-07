@@ -32,3 +32,7 @@ export const form2 = z.object({
   idName: z.string(),
   idImage: z.string(),
 });
+
+export const itemsSchema = z.object({
+  category: z.string(),
+});

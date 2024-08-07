@@ -118,6 +118,7 @@ model FoodItem {
   description String?
   price       Float
   rating      Float?
-  isVeg       Boolean
+  isVeg       String
+  image       String
   menu        Menu    @relation(fields: [menuId], references: [id], onDelete: Cascade)
 }
