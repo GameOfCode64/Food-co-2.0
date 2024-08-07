@@ -1,4 +1,3 @@
-import { Label } from "@radix-ui/react-label";
 import {
   Heart,
   History,
@@ -73,5 +72,16 @@ export const sidebar = [
     label: "Add Items",
     href: "/restaurant/add-items",
     icon: Pizza,
+  },
+];
+
+export const FoodType = [
+  {
+    name: "Veg",
+    value: "veg",
+  },
+  {
+    name: "Non Veg",
+    value: "nonVeg",
   },
 ];

@@ -4,28 +4,49 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const getrestaurant = await getRestaurant();
+    const restaurant = await getRestaurant();
     const data = await request.json();
-    const { category } = data;
+    const { categoryName } = data;
 
-    if (!category) {
-      return new NextResponse("Missing category", { status: 400 });
+    if (!categoryName) {
+      return new NextResponse("Missing category name", { status: 400 });
     }
 
-    if (!getrestaurant) {
+    if (!restaurant) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const menu = await prisma.menu.create({
+    let menu = await prisma.menu.findFirst({
+      where: {
+        restaurantId: restaurant.id,
+      },
+    });
+
+    if (!menu) {
+      menu = await prisma.menu.create({
+        data: {
+          restaurantId: restaurant.id,
+          category: {
+            create: [],
+          },
+          items: {
+            create: [],
+          },
+        },
+      });
+    }
+
+    const category = await prisma.category.create({
       data: {
-        restaurantId: getrestaurant.id,
-        category: category,
-        items: {
+        name: categoryName,
+        menuId: menu.id,
+        foodItems: {
           create: [],
         },
       },
     });
-    return NextResponse.json(menu, { status: 201 });
+
+    return NextResponse.json(category, { status: 201 });
   } catch (error: any) {
     console.error(error);
     return new NextResponse("Internal Server Error", { status: 500 });

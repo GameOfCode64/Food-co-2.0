@@ -34,5 +34,15 @@ export const form2 = z.object({
 });
 
 export const itemsSchema = z.object({
-  category: z.string(),
+  categoryName: z.string(),
+});
+
+export const CreateItemSchema = z.object({
+  name: z.string(),
+  categoryId: z.string(),
+  image: z.string(),
+  type: z.string(),
+  price: z.string(),
+  rating: z.string(),
+  description: z.string(),
 });

@@ -80,12 +80,12 @@ model Item {
   name        String
   description String?
   image       String?
-  Orders      Orders?    @relation(fields: [ordersId], references: [id])
   ordersId    String?    @db.ObjectId
-  Cart        Cart?      @relation(fields: [cartId], references: [id])
   cartId      String?    @db.ObjectId
-  Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
   favoritesId String?    @db.ObjectId
+  Orders      Orders?    @relation(fields: [ordersId], references: [id])
+  Cart        Cart?      @relation(fields: [cartId], references: [id])
+  Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
 }
 
 model Restaurant {
@@ -106,19 +106,29 @@ model Restaurant {
 model Menu {
   id           String     @id @default(auto()) @map("_id") @db.ObjectId
   restaurantId String     @db.ObjectId
-  category     String
+  category     Category[]
   items        FoodItem[]
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 }
 
+model Category {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  foodItems FoodItem[]
+  Menu      Menu?      @relation(fields: [menuId], references: [id])
+  menuId    String?    @db.ObjectId
+}
+
 model FoodItem {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  menuId      String  @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  menuId      String   @db.ObjectId
+  categoryId  String   @db.ObjectId
   name        String
   description String?
-  price       Float
-  rating      Float?
-  isVeg       String
+  price       String
+  rating      String?
+  type        String
   image       String
-  menu        Menu    @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  menu        Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
