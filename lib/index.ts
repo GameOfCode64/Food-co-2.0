@@ -73,6 +73,11 @@ export const sidebar = [
     href: "/restaurant/add-items",
     icon: Pizza,
   },
+  {
+    label: "Profile",
+    href: "/restaurant/profile",
+    icon: User,
+  },
 ];
 
 export const FoodType = [

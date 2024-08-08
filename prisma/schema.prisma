@@ -95,6 +95,10 @@ model Restaurant {
   phone        String?
   location     String?
   identityName String?
+  image        String?
+  rating       String?
+  time         String?
+  speciality   String?
   identityUrl  String?
   menu         Menu[]
   ownerId      String   @db.ObjectId
