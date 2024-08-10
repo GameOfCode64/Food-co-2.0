@@ -3,14 +3,24 @@ import restBg from "@/public/restbg.jpg";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import RestaurantDetails from "@/components/restaurant/RestaurantDetails";
-const page = () => {
+import getRestaurant from "@/actions/getRestaurant";
+const page = async () => {
+  const data = await getRestaurant();
+  let url;
+  if (data?.image === null) {
+    url = restBg;
+  } else {
+    url = data?.image;
+  }
   return (
     <div className="w-full h-full md:py-8 py-4">
       <div className="w-full h-[40dvh] relative ">
         <Image
-          src={restBg}
+          src={url || ""}
           alt="Banner_image"
           className="w-full h-full object-cover rounded-md z-0"
+          width={700}
+          height={400}
         />
         <div className="w-full absolute h-full z-10 top-0 left-0 bg-[#0000006b] rounded-md">
           <div className="flex justify-center px-6 h-full flex-col">
@@ -26,7 +36,14 @@ const page = () => {
         </div>
       </div>
       <div className="mt-8">
-        <RestaurantDetails />
+        <RestaurantDetails
+          id={data?.id || ""}
+          name={data?.name || ""}
+          email={data?.email || ""}
+          phone={data?.phone || ""}
+          location={data?.location || ""}
+          rating={data?.rating || ""}
+        />
       </div>
     </div>
   );
