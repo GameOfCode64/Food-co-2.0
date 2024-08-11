@@ -29,7 +29,7 @@ const RestaurantDetails = ({
           <UserPen
             className="text-bittersweet-500 cursor-pointer"
             size={22}
-            onClick={() => onOpen}
+            onClick={onOpen}
           />
         </p>
       </div>

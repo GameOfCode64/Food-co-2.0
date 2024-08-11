@@ -46,3 +46,14 @@ export const CreateItemSchema = z.object({
   rating: z.string(),
   description: z.string(),
 });
+
+// Profile
+export const restaurantProfile = z.object({
+  name: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  location: z.string(),
+  rating: z.string(),
+  image: z.string(),
+  speciality: z.string(),
+});

@@ -26,11 +26,11 @@ const page = async () => {
           <div className="flex justify-center px-6 h-full flex-col">
             <h1 className="text-3xl font-extrabold text-white">Eat & Code</h1>
             <p className=" text-[#ccc] text-sm font-medium mt-2">
-              South Indian, North Indian
+              {data?.speciality || "No Speciality Yet !"}
             </p>
             <p className="flex items-center justify-normal mt-2 text-white">
               <Star size={17} className=" text-bittersweet-400 mr-2" />
-              4.6
+              {data?.rating}
             </p>
           </div>
         </div>

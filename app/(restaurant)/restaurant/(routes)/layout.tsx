@@ -7,7 +7,7 @@ import EditRestaurantProfile from "@/components/restaurant/editProfile";
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const data = await getRestaurant();
   return (
-    <div className="flex flex-row md:space-x-5">
+    <>
       <EditRestaurantProfile
         id={data?.id || ""}
         name={data?.name || ""}
@@ -15,12 +15,15 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
         phone={data?.phone || ""}
         location={data?.location || ""}
         rating={data?.rating || ""}
+        speciality={data?.speciality || ""}
       />
-      <RestaurantSidebar />
-      <AddCategory />
-      {children}
-      <Toaster />
-    </div>
+      <div className="flex flex-row md:space-x-5">
+        <RestaurantSidebar />
+        <AddCategory />
+        {children}
+        <Toaster />
+      </div>
+    </>
   );
 };
 
