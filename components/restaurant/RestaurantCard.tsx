@@ -65,7 +65,7 @@ const RestaurantCard = ({
               <p className="font-bold">{name}</p>
               <p className="flex items-center justify-normal text-emerald-500 font-medium">
                 <Star size={17} className="mr-2" />
-                {rating} •<span className="ml-2 text-sm">30-35 mins</span>
+                {rating} •<span className="ml-2 text-sm">25-35 mins</span>
               </p>
               <p className="text-sm text-[#333] font-medium">{speciality}</p>
               <p className="text-sm text-[#333] font-bold flex items-center justify-normal">
