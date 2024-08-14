@@ -34,7 +34,7 @@ const RestaurantCard = ({
         </div>
       </div>
       <Swiper
-        className="flex h-[300px] mt-2"
+        className="flex md:h-[300px] h-[400px] mt-2"
         spaceBetween={30}
         slidesPerView={4}
         breakpoints={{
