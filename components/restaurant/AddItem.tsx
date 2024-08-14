@@ -1,12 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useItem } from "@/hooks/additem-pop";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
