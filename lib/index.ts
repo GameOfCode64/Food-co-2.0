@@ -90,3 +90,5 @@ export const FoodType = [
     value: "nonVeg",
   },
 ];
+
+// Props

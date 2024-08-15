@@ -90,16 +90,16 @@ model Item {
 
 model Restaurant {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String?
-  email        String?  @unique
-  phone        String?
-  location     String?
-  identityName String?
-  image        String?
-  rating       String?
-  time         String?
-  speciality   String?
-  identityUrl  String?
+  name         String
+  email        String   @unique
+  phone        String
+  location     String
+  identityName String
+  image        String
+  rating       String
+  time         String
+  speciality   String
+  identityUrl  String
   menu         Menu[]
   ownerId      String   @db.ObjectId
   createdAt    DateTime @default(now())
