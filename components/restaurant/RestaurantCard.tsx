@@ -5,6 +5,9 @@ import SliderCard from "./SliderCard";
 
 const RestaurantCard = async () => {
   const data = await getallRestaurant();
+  if (data === null) {
+    return "No data Found";
+  }
   return (
     <div className="w-full h-full px-2 py-3">
       <div className="flex flex-row items-center justify-between">
