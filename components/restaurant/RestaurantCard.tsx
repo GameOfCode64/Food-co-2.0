@@ -7,6 +7,7 @@ import banner from "@/public/loginbg.jpg";
 import Image from "next/image";
 import Link from "next/link";
 interface DetailsProps {
+  id: string;
   name: string | null;
   image: string | null;
   location: string | null;
@@ -19,6 +20,7 @@ const RestaurantCard = ({
   speciality,
   image,
   rating,
+  id,
 }: DetailsProps) => {
   return (
     <div className="w-full h-full px-2 py-3">
@@ -53,27 +55,29 @@ const RestaurantCard = ({
         }}
       >
         <SwiperSlide className="w-full h-full  cursor-pointer">
-          <div className="w-full h-[65%]">
-            <Image
-              src={image || banner}
-              alt="banner"
-              className="w-full h-full object-center rounded-3xl"
-              width={400}
-              height={400}
-            />
-            <div className="flex flex-col px-2 py-2">
-              <p className="font-bold">{name}</p>
-              <p className="flex items-center justify-normal text-emerald-500 font-medium">
-                <Star size={17} className="mr-2" />
-                {rating} •<span className="ml-2 text-sm">25-35 mins</span>
-              </p>
-              <p className="text-sm text-[#333] font-medium">{speciality}</p>
-              <p className="text-sm text-[#333] font-bold flex items-center justify-normal">
-                <LocateIcon className="mr-2 text-emerald-500" size={17} />
-                {location}
-              </p>
+          <Link href={`/menu/${id}`}>
+            <div className="w-full h-[65%]">
+              <Image
+                src={image || banner}
+                alt="banner"
+                className="w-full h-full object-center rounded-3xl"
+                width={400}
+                height={400}
+              />
+              <div className="flex flex-col px-2 py-2">
+                <p className="font-bold">{name}</p>
+                <p className="flex items-center justify-normal text-emerald-500 font-medium">
+                  <Star size={17} className="mr-2" />
+                  {rating} •<span className="ml-2 text-sm">25-35 mins</span>
+                </p>
+                <p className="text-sm text-[#333] font-medium">{speciality}</p>
+                <p className="text-sm text-[#333] font-bold flex items-center justify-normal">
+                  <LocateIcon className="mr-2 text-emerald-500" size={17} />
+                  {location}
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
         </SwiperSlide>
       </Swiper>
     </div>

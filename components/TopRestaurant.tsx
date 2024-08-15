@@ -12,6 +12,7 @@ const TopRestaurant = async () => {
         location={data?.location || ""}
         rating={data?.rating || ""}
         speciality={data?.speciality || ""}
+        id={data?.id || ""}
       />
     </div>
   );
