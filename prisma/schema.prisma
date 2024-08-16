@@ -44,48 +44,32 @@ model Account {
 }
 
 model Orders {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  items     Item[]
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @db.ObjectId
+  items     FoodItem[]
   total     Float
   status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Cart {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  items     Item[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @db.ObjectId
+  items     FoodItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Favorites {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String   @db.ObjectId
-  items     Item[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Item {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  productId   String     @db.ObjectId
-  quantity    Int
-  price       Float
-  name        String
-  description String?
-  image       String?
-  ordersId    String?    @db.ObjectId
-  cartId      String?    @db.ObjectId
-  favoritesId String?    @db.ObjectId
-  Orders      Orders?    @relation(fields: [ordersId], references: [id])
-  Cart        Cart?      @relation(fields: [cartId], references: [id])
-  Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @db.ObjectId
+  items     FoodItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Restaurant {
@@ -97,7 +81,6 @@ model Restaurant {
   identityName String
   image        String
   rating       String
-  time         String
   speciality   String
   identityUrl  String
   menu         Menu[]
@@ -124,15 +107,21 @@ model Category {
 }
 
 model FoodItem {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  menuId      String   @db.ObjectId
-  categoryId  String   @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  menuId      String     @db.ObjectId
+  categoryId  String     @db.ObjectId
   name        String
   description String?
   price       String
   rating      String?
   type        String
   image       String
-  menu        Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
-  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  menu        Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  ordersId    String?    @db.ObjectId
+  cartId      String?    @db.ObjectId
+  favoritesId String?    @db.ObjectId
+  Orders      Orders?    @relation(fields: [ordersId], references: [id])
+  Cart        Cart?      @relation(fields: [cartId], references: [id])
+  Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
 }

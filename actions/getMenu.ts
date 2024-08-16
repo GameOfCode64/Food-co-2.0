@@ -15,9 +15,6 @@ const getMenu = async (id: string) => {
       },
     });
 
-    if (!restaurantWithMenu) {
-      return "No Restaurant or Menu found!";
-    }
     return restaurantWithMenu;
   } catch (error: any) {
     console.error("Error fetching restaurant and menu:", error);
