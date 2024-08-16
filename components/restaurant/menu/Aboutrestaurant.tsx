@@ -29,29 +29,6 @@ const Aboutdata = ({ name, phone, email, location }: AboutProps) => {
           +91 {phone}
         </p>
       </div>
-      <div className="w-full bg-[#eeeeee] h-[300px] mt-6 rounded-3xl px-2">
-        <div className="flex items-center justify-center h-full flex-col">
-          <p className="font-extrabold text-[#333] text-center">
-            For better experience, download the Food & Co app now
-          </p>
-          <div className="flex items-center justify-center gap-12 mt-8">
-            <Image
-              src={play}
-              alt="play"
-              height={120}
-              width={120}
-              className="cursor-pointer"
-            />
-            <Image
-              src={app}
-              alt="play"
-              height={120}
-              width={120}
-              className="cursor-pointer"
-            />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

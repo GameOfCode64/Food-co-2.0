@@ -6,7 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Aboutdata from "./menu/Aboutrestaurant";
 import getMenu from "@/actions/getMenu";
 import { formatCurrency } from "@/lib/currencyFromate";
-import { number } from "zod";
+import play from "@/public/play_store.png";
+import app from "@/public/app_store.png";
 import { cn } from "@/lib/utils";
 
 const dataMenu = async ({ menuid }: { menuid: string }) => {
@@ -59,7 +60,7 @@ const dataMenu = async ({ menuid }: { menuid: string }) => {
               </p>
               {data?.menu[0].items.map((item, index) => (
                 <div className="mt-4 md:w-[80%] w-full" key={index}>
-                  <div className="w-full h-[200px] border-b-[1px] border-zinc-400 md:px-6 px-2 relative">
+                  <div className="w-full h-[200px] border-b-[1px] border-[#ccc] md:px-6 px-2 relative">
                     <div
                       className={cn(
                         "absolute w-[25px] h-[25] px-1 py-[6px] border-2 rounded-md flex items-center justify-center top-0 left-0",
@@ -119,6 +120,29 @@ const dataMenu = async ({ menuid }: { menuid: string }) => {
             />
           </TabsContent>
         </Tabs>
+      </div>
+      <div className="w-full bg-[#eeeeee] h-[300px] md:mt-12 mt-6 rounded-3xl px-2">
+        <div className="flex items-center justify-center h-full flex-col">
+          <p className="font-extrabold text-[#333] text-center">
+            For better experience, download the Food & Co app now
+          </p>
+          <div className="flex items-center justify-center gap-12 mt-8">
+            <Image
+              src={play}
+              alt="play"
+              height={120}
+              width={120}
+              className="cursor-pointer"
+            />
+            <Image
+              src={app}
+              alt="play"
+              height={120}
+              width={120}
+              className="cursor-pointer"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
