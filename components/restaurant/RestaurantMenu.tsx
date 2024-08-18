@@ -5,14 +5,14 @@ import pizza from "@/public/pizza.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Aboutdata from "./menu/Aboutrestaurant";
 import getMenu from "@/actions/getMenu";
-import { formatCurrency } from "@/lib/currencyFromate";
 import play from "@/public/play_store.png";
 import app from "@/public/app_store.png";
-import { cn } from "@/lib/utils";
+import Menu from "./menu/Menu";
+import getCurrentUser from "@/actions/getUser";
 
 const dataMenu = async ({ menuid }: { menuid: string }) => {
   const data = await getMenu(menuid);
-
+  const currentUser = await getCurrentUser();
   if (data?.menu[0]?.items?.length === undefined) {
     return `Restaurant have No Item Yet!`;
   }
@@ -54,62 +54,7 @@ const dataMenu = async ({ menuid }: { menuid: string }) => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="menu">
-            <div className="w-full mt-8 flex flex-col h-full">
-              <p className="font-bold text-bittersweet-400">
-                Total Items ({data?.menu[0]?.items?.length})
-              </p>
-              {data?.menu[0].items.map((item, index) => (
-                <div className="mt-4 md:w-[80%] w-full" key={index}>
-                  <div className="w-full h-[200px] border-b-[1px] border-[#ccc] md:px-6 px-2 relative">
-                    <div
-                      className={cn(
-                        "absolute w-[25px] h-[25] px-1 py-[6px] border-2 rounded-md flex items-center justify-center top-0 left-0",
-                        item.type === "veg"
-                          ? `border-emerald-500`
-                          : "border-[#e43554]"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          `w-[10px] h-[10px] top-0 left-0 rounded-full`,
-                          item.type === "veg"
-                            ? `bg-emerald-500`
-                            : "bg-[#e43554]"
-                        )}
-                      />
-                    </div>
-                    <div className="w-full h-full flex items-center justify-between">
-                      <div className="flex flex-col space-y-1">
-                        <p className="font-bold text-zinc-700">{item.name}</p>
-                        <p className="font-semibold text-zinc-700">
-                          {formatCurrency(Number(item.price))}
-                        </p>
-                        <p className="flex items-center justify-normal text-emerald-500 font-semibold">
-                          <Star size={17} className="mr-1" /> {item.rating}
-                        </p>
-                        <p className="text-wrap text-zinc-500 text-sm">
-                          {item.description}
-                        </p>
-                      </div>
-                      <div className="w-[150px] h-[150px] rounded-3xl relative">
-                        <Image
-                          src={item.image}
-                          alt="image"
-                          width={750}
-                          height={750}
-                          className="w-full h-full object-center rounded-3xl"
-                        />
-                        <div className=" absolute flex items-center justify-center bottom-[-5%] w-full">
-                          <button className="px-8 py-2 rounded-xl cursor-pointer bg-bittersweet-400 text-white font-bold">
-                            Add
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Menu data={data?.menu[0].items} userId={currentUser?.id || ""} />
           </TabsContent>
           <TabsContent value="about">
             <Aboutdata

@@ -116,6 +116,7 @@ model FoodItem {
   rating      String?
   type        String
   image       String
+  quantity    Int        @default(1) // Add this field to store item count
   menu        Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
   category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   ordersId    String?    @db.ObjectId
