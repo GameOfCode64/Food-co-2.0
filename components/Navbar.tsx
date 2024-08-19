@@ -1,26 +1,27 @@
 "use client";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import logo from "@/public/soup.png";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { BadgePercent, LifeBuoy, Search, ShoppingBag } from "lucide-react";
-import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { useCart } from "@/app/context/CartContext";
 
 interface NavbarProps {
   imgurl: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
+  const { getCartCount } = useCart();
   const session = useSession();
-  const count = 0;
+
   return (
     <nav className="w-full h-[80px] shadow-md">
       <div className="flex items-center justify-between md:px-20 px-4 py-6">
         <Link href="/" className="flex items-center justify-center gap-4">
           <Image src={logo} alt="logo" />
-          <p className=" font-bold text-xl  text-bittersweet-400">Food&CO</p>
+          <p className="font-bold text-xl text-bittersweet-400">Food&CO</p>
         </Link>
         <ul className="flex items-center justify-center space-x-6 font-medium">
           <Link
@@ -42,11 +43,11 @@ const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
             className="flex items-center justify-center gap-2 hover:text-bittersweet-500"
           >
             <LifeBuoy size={17} />
-            help
+            Help
           </Link>
           <Link href="/cart" className="relative">
             <span className="absolute top-[-15px] text-center right-[-10px] w-[22px] h-[22px] bg-bittersweet-500 flex items-center justify-center rounded-full text-[14px] text-white">
-              {count}
+              {getCartCount()}
             </span>
             <ShoppingBag />
           </Link>
@@ -68,7 +69,7 @@ const Navbar: React.FC<NavbarProps> = ({ imgurl }) => {
           ) : (
             <>
               <Link href="/auth">
-                <Button className=" rounded-3xl px-6 bg-bittersweet-500 hover:bg-bittersweet-600">
+                <Button className="rounded-3xl px-6 bg-bittersweet-500 hover:bg-bittersweet-600">
                   Sign In
                 </Button>
               </Link>

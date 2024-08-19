@@ -52,24 +52,43 @@ model Orders {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Item      Item[]
 }
 
 model Cart {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String     @db.ObjectId
-  items     FoodItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Item      Item[]
+}
+
+model Item {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  productId   String     @db.ObjectId
+  quantity    Int
+  price       Float
+  name        String
+  rating      String?
+  description String?
+  image       String?
+  ordersId    String?    @db.ObjectId
+  cartId      String?    @db.ObjectId
+  favoritesId String?    @db.ObjectId
+  Orders      Orders?    @relation(fields: [ordersId], references: [id])
+  Cart        Cart?      @relation(fields: [cartId], references: [id])
+  Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
 }
 
 model Favorites {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   userId    String     @db.ObjectId
-  items     FoodItem[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Item      Item[]
+  FoodItem  FoodItem[]
 }
 
 model Restaurant {
@@ -116,13 +135,12 @@ model FoodItem {
   rating      String?
   type        String
   image       String
-  quantity    Int        @default(1) // Add this field to store item count
+  quantity    Int        @default(1)
   menu        Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
   category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   ordersId    String?    @db.ObjectId
   cartId      String?    @db.ObjectId
   favoritesId String?    @db.ObjectId
   Orders      Orders?    @relation(fields: [ordersId], references: [id])
-  Cart        Cart?      @relation(fields: [cartId], references: [id])
   Favorites   Favorites? @relation(fields: [favoritesId], references: [id])
 }

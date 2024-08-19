@@ -2,7 +2,7 @@ import React from "react";
 import RestaurantMenu from "@/components/restaurant/RestaurantMenu";
 import getMenu from "@/actions/getMenu";
 
-export const revalidate = 30;
+const revalidate = 30;
 
 const Page = async ({ params }: { params: { menuid: string } }) => {
   return (
