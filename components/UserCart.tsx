@@ -36,14 +36,12 @@ const UserCart = () => {
     }
   }, []);
 
-  // Update cart in localStorage
   const updateCart = (updatedCart: CartItemProps[]) => {
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    calculateTotal(updatedCart); // Update total after cart change
+    calculateTotal(updatedCart);
   };
 
-  // Calculate the total price
   const calculateTotal = (cart: CartItemProps[]) => {
     const total = cart.reduce(
       (acc, item) => acc + Number(item.price) * item.quantity,
@@ -52,7 +50,6 @@ const UserCart = () => {
     setTotalPrice(total);
   };
 
-  // Increment quantity
   const handleIncrement = (itemId: string) => {
     const updatedCart = cartItems.map((item) =>
       item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item
@@ -60,7 +57,6 @@ const UserCart = () => {
     updateCart(updatedCart);
   };
 
-  // Decrement quantity
   const handleDecrement = (itemId: string) => {
     const updatedCart = cartItems
       .map((item) =>
@@ -70,7 +66,6 @@ const UserCart = () => {
     updateCart(updatedCart);
   };
 
-  // Remove item from cart
   const handleRemove = (itemId: string) => {
     const updatedCart = cartItems.filter((item) => item.id !== itemId);
     updateCart(updatedCart);
@@ -120,12 +115,6 @@ const UserCart = () => {
                   >
                     +
                   </button>
-                  {/* <button
-                    onClick={() => handleRemove(item.id)}
-                    className="px-4 py-2 rounded bg-red-500 text-white"
-                  >
-                    Remove
-                  </button> */}
                 </div>
               </div>
             ))}
@@ -138,7 +127,7 @@ const UserCart = () => {
               </span>
             </h3>
             <Button className="px-8 py-2 rounded bg-bittersweet-500 hover:bg-bittersweet-500/80">
-              Proceed to Checkout
+              Proceed Checkout
             </Button>
           </div>
         </div>
