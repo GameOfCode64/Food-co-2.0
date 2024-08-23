@@ -6,6 +6,12 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { Star } from "lucide-react";
 import { formatCurrency } from "@/lib/currencyFromate";
+import { loadStripe } from "@stripe/stripe-js";
+
+// Initialize Stripe
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 interface CartItemProps {
   id: string;
@@ -71,6 +77,28 @@ const UserCart = () => {
     updateCart(updatedCart);
   };
 
+  const handleCheckout = async () => {
+    const stripe = await stripePromise;
+    if (!stripe) return;
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: cartItems }),
+      });
+
+      const session = await response.json();
+
+      // Redirect to Stripe checkout
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error("Error creating checkout session", error);
+    }
+  };
+
   return (
     <div className="w-full h-full">
       {cartItems.length !== 0 ? (
@@ -116,6 +144,12 @@ const UserCart = () => {
                     +
                   </button>
                 </div>
+                <Button
+                  onClick={() => handleRemove(item.id)}
+                  className="ml-4 bg-red-500 hover:bg-red-600"
+                >
+                  Remove
+                </Button>
               </div>
             ))}
           </div>
@@ -126,7 +160,10 @@ const UserCart = () => {
                 {formatCurrency(totalPrice)}
               </span>
             </h3>
-            <Button className="px-8 py-2 rounded bg-bittersweet-500 hover:bg-bittersweet-500/80">
+            <Button
+              onClick={handleCheckout}
+              className="px-8 py-2 rounded bg-bittersweet-500 hover:bg-bittersweet-500/80"
+            >
               Proceed Checkout
             </Button>
           </div>
