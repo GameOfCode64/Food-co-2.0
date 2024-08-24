@@ -15,13 +15,10 @@ const SuccessPage = () => {
 
   useEffect(() => {
     if (sessionId) {
-      // Fetch session details from the backend
       fetch(`/api/checkout/session?session_id=${sessionId}`)
         .then((response) => response.json())
         .then((data) => {
           setOrderDetails(data);
-
-          // Clear the cart after successful checkout
           localStorage.removeItem("cart");
         })
         .catch((error) => {

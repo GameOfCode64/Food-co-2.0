@@ -28,34 +28,37 @@ export async function GET(request: Request) {
     }
 
     const orderData = {
-      id: session.id,
+      id: currentUser?.id || "",
       customer: session.customer_details?.email || "",
       totalAmount: (session.amount_total ?? 0) / 100,
       currency: session.currency,
       paymentStatus: session.payment_status,
       items:
-        session.line_items?.data.map((item: any) => ({
-          menuId: item.price.product.metadata.menuId || null,
-          categoryId: item.price.product.metadata.categoryId || null,
-          productId: item.price.product.id,
-          quantity: item.quantity,
-          price: (item.amount_total ?? 0) / 100,
-          name: item.description,
-          type: item.price.product.metadata.type || "",
-          image: item.price.product.metadata.image || "",
-        })) || [],
+        session.line_items?.data.map((item: any) => {
+          const price = item.price;
+
+          return {
+            menuId: price?.product?.metadata.menuId || null,
+            categoryId: price?.product?.metadata.categoryId || null,
+            productId: price?.product?.id || "", // Store as a string, not ObjectID
+            quantity: item.quantity || 0,
+            price: price?.unit_amount ? price.unit_amount / 100 : 0, // Handle null price by defaulting to 0
+            name: item.description || "",
+            type: price?.product?.metadata.type || "",
+            image: price?.product?.metadata.image || "",
+          };
+        }) || [],
     };
 
     const newOrder = await prisma.orders.create({
       data: {
-        id: orderData.id,
         userId: currentUser?.id || "",
         stripeSessionId: sessionId,
         total: orderData.totalAmount,
         status: orderData.paymentStatus,
         Item: {
           create: orderData.items.map((item) => ({
-            productId: item.productId,
+            productId: item.productId, // Stored as a string
             quantity: item.quantity,
             price: item.price,
             name: item.name,
