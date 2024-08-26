@@ -26,23 +26,27 @@ export async function GET(request: Request) {
     if (!session) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
+    const customerEmail = session.customer_details?.email || "";
+    const shippingAddress = session.shipping_details?.address || {};
 
     const orderData = {
       id: currentUser?.id || "",
       customer: session.customer_details?.email || "",
       totalAmount: (session.amount_total ?? 0) / 100,
       currency: session.currency,
+      email: customerEmail,
+      shippingAddress: shippingAddress,
+      menuId: "66b08c1282f2fcc7d7848578",
       paymentStatus: session.payment_status,
       items:
         session.line_items?.data.map((item: any) => {
           const price = item.price;
 
           return {
-            menuId: price?.product?.metadata.menuId || null,
             categoryId: price?.product?.metadata.categoryId || null,
-            productId: price?.product?.id || "", // Store as a string, not ObjectID
+            productId: price?.product?.id || "",
             quantity: item.quantity || 0,
-            price: price?.unit_amount ? price.unit_amount / 100 : 0, // Handle null price by defaulting to 0
+            price: price?.unit_amount ? price.unit_amount / 100 : 0,
             name: item.description || "",
             type: price?.product?.metadata.type || "",
             image: price?.product?.metadata.image || "",
@@ -54,11 +58,14 @@ export async function GET(request: Request) {
       data: {
         userId: currentUser?.id || "",
         stripeSessionId: sessionId,
+        email: orderData.email,
+        address: JSON.stringify(orderData.shippingAddress),
+        menuId: orderData.menuId,
         total: orderData.totalAmount,
         status: orderData.paymentStatus,
         Item: {
           create: orderData.items.map((item) => ({
-            productId: item.productId, // Stored as a string
+            productId: item.productId,
             quantity: item.quantity,
             price: item.price,
             name: item.name,

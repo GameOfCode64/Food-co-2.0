@@ -48,6 +48,9 @@ model Orders {
   userId          String   @db.ObjectId
   stripeSessionId String?
   total           Float
+  email           String
+  address         String
+  menuId          String
   status          String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
