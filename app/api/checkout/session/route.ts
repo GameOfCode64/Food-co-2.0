@@ -28,9 +28,21 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
-    // Update the order associated with the current user
+    // Fetch the order using the current user's email
+    const order = await prisma.orders.findFirst({
+      where: { email: currentUser?.email },
+    });
+
+    if (!order) {
+      return NextResponse.json(
+        { error: "Order not found for this user" },
+        { status: 404 }
+      );
+    }
+
+    // Update the order using the unique order id
     const updatedOrder = await prisma.orders.update({
-      where: { id: "", email: currentUser?.email }, // Ensure the email exists in your order model
+      where: { id: order.id }, // Use the unique ID
       data: {
         paymentStatus: "Paid",
         stripeSessionId: sessionId,
