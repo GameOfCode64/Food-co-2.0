@@ -68,7 +68,7 @@ const UserCart = () => {
       .map((item) =>
         item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
       )
-      .filter((item) => item.quantity > 0); // Remove items with quantity 0
+      .filter((item) => item.quantity > 0);
     updateCart(updatedCart);
   };
 
@@ -80,22 +80,31 @@ const UserCart = () => {
   const handleCheckout = async () => {
     const stripe = await stripePromise;
     if (!stripe) return;
-
     try {
-      const response = await fetch("/api/checkout", {
+      // Send cart data to your /api/order endpoint
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: cartItems, totalPrice }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create order");
+      }
+      // After sending the order data, create a checkout session
+      const checkoutResponse = await fetch("/api/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ items: cartItems }),
       });
-
-      const session = await response.json();
-
-      // Redirect to Stripe checkout
+      const session = await checkoutResponse.json();
       await stripe.redirectToCheckout({ sessionId: session.id });
     } catch (error) {
-      console.error("Error creating checkout session", error);
+      console.error("Error during checkout", error);
     }
   };
 

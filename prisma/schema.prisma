@@ -47,11 +47,13 @@ model Orders {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   userId          String   @db.ObjectId
   stripeSessionId String?
-  total           Float
-  email           String
-  address         String
+  total           Float?
+  email           String?
+  phone           String?
+  address         String?
   menuId          String
-  status          String
+  status          String?
+  paymentStatus   String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)

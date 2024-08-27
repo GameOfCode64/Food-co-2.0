@@ -19,6 +19,7 @@ export async function GET(request: Request) {
   }
 
   try {
+    // Retrieve session details from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ["line_items.data.price.product"],
     });
@@ -26,57 +27,17 @@ export async function GET(request: Request) {
     if (!session) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
-    const customerEmail = session.customer_details?.email || "";
-    const shippingAddress = session.shipping_details?.address || {};
 
-    const orderData = {
-      id: currentUser?.id || "",
-      customer: session.customer_details?.email || "",
-      totalAmount: (session.amount_total ?? 0) / 100,
-      currency: session.currency,
-      email: customerEmail,
-      shippingAddress: shippingAddress,
-      menuId: "66b08c1282f2fcc7d7848578",
-      paymentStatus: session.payment_status,
-      items:
-        session.line_items?.data.map((item: any) => {
-          const price = item.price;
-
-          return {
-            categoryId: price?.product?.metadata.categoryId || null,
-            productId: price?.product?.id || "",
-            quantity: item.quantity || 0,
-            price: price?.unit_amount ? price.unit_amount / 100 : 0,
-            name: item.description || "",
-            type: price?.product?.metadata.type || "",
-            image: price?.product?.metadata.image || "",
-          };
-        }) || [],
-    };
-
-    const newOrder = await prisma.orders.create({
+    // Update the order associated with the current user
+    const updatedOrder = await prisma.orders.update({
+      where: { id: "", email: currentUser?.email }, // Ensure the email exists in your order model
       data: {
-        userId: currentUser?.id || "",
+        paymentStatus: "Paid",
         stripeSessionId: sessionId,
-        email: orderData.email,
-        address: JSON.stringify(orderData.shippingAddress),
-        menuId: orderData.menuId,
-        total: orderData.totalAmount,
-        status: orderData.paymentStatus,
-        Item: {
-          create: orderData.items.map((item) => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            price: item.price,
-            name: item.name,
-            type: item.type,
-            image: item.image,
-          })),
-        },
       },
     });
 
-    return NextResponse.json(newOrder);
+    return NextResponse.json(updatedOrder);
   } catch (err: any) {
     console.error("Error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
