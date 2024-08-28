@@ -90,5 +90,50 @@ export const FoodType = [
     value: "nonVeg",
   },
 ];
+export const status = [
+  {
+    label: "Padding",
+    value: "padding",
+  },
+  {
+    label: "Preparing",
+    value: "Preparing",
+  },
+  {
+    label: "Out for Delivery",
+    value: "Out for Delivery",
+  },
+  {
+    label: "Delivered",
+    value: "Delivered",
+  },
+];
 
 // Props
+export interface OrderTabelProps {
+  data: {
+    id: string;
+    stripeSessionId: string | null;
+    total: number | null;
+    email: string | null;
+    phone: string | null;
+    address: string | null;
+    status: string | null;
+    paymentStatus: string | null;
+    createdAt: Date;
+    Item: {
+      id: string;
+      productId: string;
+      quantity: number;
+      type: string;
+      price: number;
+      name: string;
+      rating: string | null;
+      description: string | null;
+      image: string | null;
+      ordersId: string | null;
+      cartId: string | null;
+      favoritesId: string | null;
+    }[];
+  }[];
+}

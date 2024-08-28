@@ -42,7 +42,7 @@ export async function GET(request: Request) {
 
     // Update the order using the unique order id
     const updatedOrder = await prisma.orders.update({
-      where: { id: order.id }, // Use the unique ID
+      where: { id: order.id },
       data: {
         paymentStatus: "Paid",
         stripeSessionId: sessionId,
