@@ -137,3 +137,30 @@ export interface OrderTabelProps {
     }[];
   }[];
 }
+export interface OrderProps {
+  data: {
+    id: string;
+    stripeSessionId: string | null;
+    total: number | null;
+    email: string | null;
+    phone: string | null;
+    address: string | null;
+    status: string | null;
+    paymentStatus: string | null;
+    createdAt: Date;
+    Item: {
+      id: string;
+      productId: string;
+      quantity: number;
+      type: string;
+      price: number;
+      name: string;
+      rating: string | null;
+      description: string | null;
+      image: string | null;
+      ordersId: string | null;
+      cartId: string | null;
+      favoritesId: string | null;
+    }[];
+  } | null;
+}

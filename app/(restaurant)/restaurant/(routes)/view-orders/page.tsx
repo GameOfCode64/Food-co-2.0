@@ -1,4 +1,3 @@
-import getRestaurant from "@/actions/getRestaurant";
 import getRestaurantOrders from "@/actions/getRestaurantOrders";
 import OrderTable from "@/components/restaurant/OrderTable";
 import React from "react";

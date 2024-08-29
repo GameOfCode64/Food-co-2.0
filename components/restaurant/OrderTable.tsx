@@ -20,7 +20,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const OrderTable = ({ data }: OrderTabelProps) => {
   return (
@@ -88,7 +97,9 @@ const OrderTable = ({ data }: OrderTabelProps) => {
                   </p>
                 </TableCell>
                 <TableCell className="cursor-pointer">
-                  <Info className="" />
+                  <Link href={`/restaurant/view-orders/${order.id}`}>
+                    <Info className="text-bittersweet-500 hover:w-[25px] hover:h-[25px] hover:bg-[#ffffff23] p-1 rounded-full" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))
