@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
+import { formatCurrency } from "@/lib/currencyFromate";
 
 const OrderDetails = ({ data }: OrderProps) => {
   if (!data) {
@@ -99,7 +100,18 @@ const OrderDetails = ({ data }: OrderProps) => {
             <p className="font-semibold flex items-center justify-between">
               Address: <span className=" text-wrap">{data?.address}</span>
             </p>
-            <p className="font-semibold flex items-center justify-between"></p>
+            <p className="font-semibold flex items-center justify-between">
+              Payment Status:{" "}
+              <span className="text-wrap text-emerald-500">
+                {data?.paymentStatus}
+              </span>
+            </p>
+            <p className="font-semibold flex items-center justify-between">
+              SubTotal:{" "}
+              <span className="text-wrap text-emerald-500">
+                {formatCurrency(Number(data?.total))}
+              </span>
+            </p>
           </div>
         </div>
       </div>
