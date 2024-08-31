@@ -83,14 +83,14 @@ const OrderTable = ({ data }: OrderTabelProps) => {
                 <TableCell className="cursor-pointer flex items-center mt-3">
                   <p
                     className={cn(
-                      "font-medium px-4 py-3 rounded-3xl",
+                      "font-semibold px-4 py-3 rounded-3xl",
                       order.status === "Pending"
-                        ? " bg-yellow-500/20"
+                        ? "bg-yellow-500/20 text-yellow-500"
                         : order.status === "Preparing"
-                        ? "bg-indigo-500/20"
+                        ? "bg-indigo-500/20 text-indigo-500"
                         : order.status === "Out for Delivery"
-                        ? "bg-bittersweet-500/20"
-                        : "bg-emerald-500/20"
+                        ? "bg-rose-500/20 text-rose-500"
+                        : "bg-emerald-500/20 bg-emerald-500"
                     )}
                   >
                     {order.status}

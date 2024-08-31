@@ -22,11 +22,13 @@ const page = () => {
                 Customer
               </Button>
             </Link>
-            <Button className="bg-bittersweet-500 hover:bg-bittersweet-600">
-              Restaurant
-            </Button>
+            <Link href="/auth/users/sign-in">
+              <Button className="bg-bittersweet-500 hover:bg-bittersweet-600">
+                Restaurant
+              </Button>
+            </Link>
           </div>
-          <p className=" text-sm pr-12 mt-28 font-medium text-[#333]">
+          <p className="text-sm pr-12 mt-28 font-medium text-[#333]">
             Food&Co: Bringing irresistible flavors right to your doorstep,
             satisfying your cravings and turning every meal into a delightful
             experience.

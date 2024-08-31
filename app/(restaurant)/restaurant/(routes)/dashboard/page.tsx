@@ -1,12 +1,22 @@
+import React from "react";
 import getRestaurant from "@/actions/getRestaurant";
 import LatestOrders from "@/components/restaurant/LatestOrders";
 import { Activity, CookingPot, WalletMinimal } from "lucide-react";
-import React from "react";
+import getRestaurantOrders from "@/actions/getRestaurantOrders";
+import { formatCurrency } from "@/lib/currencyFromate";
 
 const page = async () => {
   const restaurant = await getRestaurant();
-  const OrderCount = 8;
-  const TotalRevenue = 25000;
+  const orders = await getRestaurantOrders();
+
+  const OrderCount = orders?.length || 0;
+
+  // Calculate the total revenue
+  const TotalRevenue =
+    orders?.reduce((total, order) => {
+      return total + (order.total || 0);
+    }, 0) || 0;
+
   return (
     <div className="flex flex-col py-4 w-full md:px-4">
       <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
@@ -39,7 +49,7 @@ const page = async () => {
             <div className="flex flex-col">
               <p className=" font-bold text-lg">Total Revenue</p>
               <p className="font-medium text-bittersweet-400">
-                ₹{TotalRevenue}
+                {formatCurrency(Number(TotalRevenue))}
               </p>
             </div>
             <div className="w-[50px] flex items-center justify-center h-[50px] bg-bittersweet-500/20 rounded-full">

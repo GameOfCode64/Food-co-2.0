@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { OrderProps } from "@/lib";
 import { File, Star } from "lucide-react";
 import {
@@ -13,12 +13,37 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { formatCurrency } from "@/lib/currencyFromate";
+import { Button } from "../ui/button";
 
 const OrderDetails = ({ data }: OrderProps) => {
-  const [orderStatus, SetOrderStatus] = useState("");
-  useEffect(() => {
-    SetOrderStatus(data?.status || "Pending");
-  }, [data?.status]);
+  const [orderStatus, SetOrderStatus] = useState(data?.status || "Pending");
+  const [isLoading, setisLoading] = useState(false);
+
+  const handleStatusChange = async (newStatus: string) => {
+    try {
+      setisLoading(true);
+      const response = await fetch("/api/order/status", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          OrderId: data?.id,
+          status: newStatus,
+        }),
+      });
+
+      if (response.ok) {
+        SetOrderStatus(newStatus);
+      } else {
+        console.error("Failed to update status");
+      }
+      setisLoading(false);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
   if (!data) {
     return "Invalid Order Id";
   }
@@ -35,7 +60,57 @@ const OrderDetails = ({ data }: OrderProps) => {
           </button>
         </div>
         <hr className="w-full h-[1px] bg-black/25 mt-4" />
-
+        <div className="flex items-center justify-between my-8">
+          <p className="font-semibold">Order Status</p>
+          <div className="flex flex-row space-x-4">
+            {orderStatus !== "Delivered" ? (
+              <>
+                <Button
+                  className="rounded-3xl px-6 bg-yellow-500 hover:bg-yellow-500/90"
+                  onClick={() => handleStatusChange("Pending")}
+                  disabled={
+                    orderStatus === "Pending" ||
+                    orderStatus === "Preparing" ||
+                    orderStatus === "Out for Delivery" ||
+                    orderStatus === "Delivered" ||
+                    isLoading
+                  }
+                >
+                  Pending
+                </Button>
+                <Button
+                  className="rounded-3xl px-6 bg-indigo-500 hover:bg-indigo-500/90"
+                  onClick={() => handleStatusChange("Preparing")}
+                  disabled={
+                    orderStatus === "Preparing" ||
+                    orderStatus === "Out for Delivery" ||
+                    orderStatus === "Delivered" ||
+                    isLoading
+                  }
+                >
+                  Preparing
+                </Button>
+                <Button
+                  className="rounded-3xl px-6 bg-rose-500 hover:bg-rose-500/90"
+                  onClick={() => handleStatusChange("Out for Delivery")}
+                  disabled={orderStatus === "Out for Delivery" || isLoading}
+                >
+                  Out for Delivery
+                </Button>
+                <Button
+                  className="rounded-3xl px-6 bg-emerald-500 hover:bg-emerald-500/90"
+                  onClick={() => handleStatusChange("Delivered")}
+                >
+                  Delivered
+                </Button>
+              </>
+            ) : (
+              <Button className="rounded-3xl px-6 bg-emerald-500 hover:bg-emerald-500/90">
+                Delivered
+              </Button>
+            )}
+          </div>
+        </div>
         {/* Order Section */}
         <div className="w-full mt-6 shadow-md rounded-md px-4 py-6">
           <h1 className="text-lg font-bold text-bittersweet-500 mb-4">
@@ -61,7 +136,7 @@ const OrderDetails = ({ data }: OrderProps) => {
                       alt="product Image"
                       width={40}
                       height={40}
-                      className=" rounded-md"
+                      className="rounded-md"
                     />
                   </TableCell>
                   <TableCell className="font-medium">{item.name}</TableCell>
