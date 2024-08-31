@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { OrderProps } from "@/lib";
 import { File, Star } from "lucide-react";
 import {
@@ -14,9 +15,14 @@ import Image from "next/image";
 import { formatCurrency } from "@/lib/currencyFromate";
 
 const OrderDetails = ({ data }: OrderProps) => {
+  const [orderStatus, SetOrderStatus] = useState("");
+  useEffect(() => {
+    SetOrderStatus(data?.status || "Pending");
+  }, [data?.status]);
   if (!data) {
     return "Invalid Order Id";
   }
+
   return (
     <div className="w-full">
       <div className="px-4">
@@ -99,6 +105,9 @@ const OrderDetails = ({ data }: OrderProps) => {
             </p>
             <p className="font-semibold flex items-center justify-between">
               Address: <span className=" text-wrap">{data?.address}</span>
+            </p>
+            <p className="font-semibold flex items-center justify-between">
+              Order Status: <span className=" text-wrap">{data?.status}</span>
             </p>
             <p className="font-semibold flex items-center justify-between">
               Payment Status:{" "}
