@@ -14,7 +14,11 @@ const getOrders = async () => {
         email: session.user.email,
       },
       include: {
-        orders: true,
+        orders: {
+          include: {
+            Item: true,
+          },
+        },
       },
     });
 

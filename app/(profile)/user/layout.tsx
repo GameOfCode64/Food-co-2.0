@@ -7,7 +7,7 @@ import React from "react";
 const ProfileLayout = async ({ children }: { children: React.ReactNode }) => {
   const CurrentUser = await getCurrentUser();
   return (
-    <div className="flex space-x-5 bg-[#eeeeee] w-full h-screen">
+    <div className="flex md:space-x-5 bg-[#eeeeee] w-full">
       <ProfileSidebar />
       <EditProfile
         email={CurrentUser?.email || ""}

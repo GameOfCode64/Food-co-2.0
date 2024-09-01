@@ -11,7 +11,7 @@ const ProfileSidebar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="md:block hidden min-w-[220px] bg-white">
+    <div className="lg:block hidden w-[300px] bg-white">
       <div className="flex flex-col items-center  py-8  ">
         <Link
           href="/"
