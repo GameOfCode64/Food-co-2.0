@@ -10,13 +10,13 @@ import { LocateIcon, Star } from "lucide-react";
 
 export interface FoodProps {
   id: string;
-  name: string;
-  email: string;
-  phone: string;
-  location: string;
-  image: string;
-  rating: string;
-  speciality: string;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  image: string | null;
+  rating: string | null;
+  speciality: string | null;
 }
 
 const SliderCard = ({ data }: { data: FoodProps[] }) => {

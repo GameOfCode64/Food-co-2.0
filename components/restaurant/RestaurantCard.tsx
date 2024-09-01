@@ -21,7 +21,7 @@ const RestaurantCard = async () => {
           </p>
         </div>
       </div>
-      <SliderCard data={data} />
+      <SliderCard data={data || []} />
     </div>
   );
 };
