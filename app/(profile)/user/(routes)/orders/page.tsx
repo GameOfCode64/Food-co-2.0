@@ -3,6 +3,10 @@ import Image from "next/image";
 import React from "react";
 import notfound from "@/public/NotFound.svg";
 import UserOrderTable from "@/components/UserOrderTabel";
+
+// Mark the page as dynamic
+export const dynamic = "force-dynamic";
+
 const page = async () => {
   const data = await getOrders();
   if (!data) {
