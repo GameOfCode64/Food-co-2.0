@@ -2,7 +2,7 @@ import React from "react";
 import CreateItems from "@/components/restaurant/CreateItems";
 import CreateCategoryBtn from "@/components/restaurant/CreateCategoryBtn";
 import getCategory from "@/actions/getCategoary";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const Category = await getCategory();
 

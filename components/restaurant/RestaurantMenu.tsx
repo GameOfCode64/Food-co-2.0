@@ -10,7 +10,7 @@ import app from "@/public/app_store.png";
 import Menu from "./menu/Menu";
 import getCurrentUser from "@/actions/getUser";
 
-const dataMenu = async ({ menuid }: { menuid: string }) => {
+const RestaurantMenu = async ({ menuid }: { menuid: string }) => {
   const data = await getMenu(menuid);
   const currentUser = await getCurrentUser();
   if (data?.menu[0]?.items?.length === undefined) {
@@ -93,4 +93,4 @@ const dataMenu = async ({ menuid }: { menuid: string }) => {
   );
 };
 
-export default dataMenu;
+export default RestaurantMenu;

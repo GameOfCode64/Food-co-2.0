@@ -1,7 +1,7 @@
 import getallItems from "@/actions/getallItems";
 import ViewAllItems from "@/components/restaurant/ViewAllItems";
 import React from "react";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const allitems = await getallItems();
 

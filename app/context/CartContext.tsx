@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-
 type CartItem = {
   id: string;
   menuId: string;

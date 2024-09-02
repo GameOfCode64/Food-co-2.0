@@ -1,11 +1,15 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
 const page = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  router.push("/");
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    router.push("/");
+  }, [router]);
+
   return (
     <div className="flex items-center justify-center h-screen">
       No ID Found !

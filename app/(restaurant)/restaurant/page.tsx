@@ -1,7 +1,7 @@
 import React from "react";
 import StartRestaurantCard from "@/components/StartRestaurantCard";
 import getRestaurant from "@/actions/getRestaurant";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const getrestaurant = await getRestaurant();
 

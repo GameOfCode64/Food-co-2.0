@@ -1,20 +1,27 @@
 import prisma from "@/lib/db";
-import getRestaurant from "./getRestaurant";
+import getCurrentUser from "./getUser";
 
 const getallItems = async () => {
+  const currentUser = await getCurrentUser();
   try {
-    const CurrentRestaurant = await getRestaurant();
+    // Fetch the restaurant associated with the current user
+    const restaurant = await prisma.restaurant.findFirst({
+      where: {
+        ownerId: currentUser?.id,
+      },
+    });
 
-    if (!CurrentRestaurant) {
-      console.error("No current restaurant found");
-      throw new Error("Unauthorized");
+    if (!restaurant) {
+      console.error("No restaurant found for the current user");
+      return [];
     }
 
-    console.log(`Current Restaurant ID: ${CurrentRestaurant.id}`);
+    console.log(`Current Restaurant ID: ${restaurant.id}`);
 
+    // Fetch the menu associated with the restaurant
     const menu = await prisma.menu.findFirst({
       where: {
-        restaurantId: CurrentRestaurant.id,
+        restaurantId: restaurant.id,
       },
       include: {
         items: true,
@@ -26,8 +33,7 @@ const getallItems = async () => {
       return [];
     }
 
-    // console.log(`Menu ID: ${menu.id}, Items: ${menu.items}`);
-
+    // Return the items from the menu
     return menu.items ?? [];
   } catch (error: any) {
     console.error("Error fetching items:", error);

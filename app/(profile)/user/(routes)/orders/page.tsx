@@ -1,14 +1,13 @@
-import getOrders from "@/actions/getOrders";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import getOrders from "@/actions/getOrders";
 import notfound from "@/public/NotFound.svg";
 import UserOrderTable from "@/components/UserOrderTabel";
 
-// Mark the page as dynamic
 export const dynamic = "force-dynamic";
-
-const page = async () => {
+const Page = async () => {
   const data = await getOrders();
+
   if (!data) {
     return <div>No Data Found</div>;
   }
@@ -30,4 +29,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;

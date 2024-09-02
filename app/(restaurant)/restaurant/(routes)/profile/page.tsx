@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import RestaurantDetails from "@/components/restaurant/RestaurantDetails";
 import getRestaurant from "@/actions/getRestaurant";
+export const dynamic = "force-dynamic";
 const page = async () => {
   const data = await getRestaurant();
   let url;

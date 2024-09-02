@@ -1,5 +1,4 @@
 "use client";
-
 import { formatCurrency } from "@/lib/currencyFromate";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";

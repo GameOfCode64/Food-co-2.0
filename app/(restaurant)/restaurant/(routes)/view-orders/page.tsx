@@ -1,7 +1,7 @@
 import getRestaurantOrders from "@/actions/getRestaurantOrders";
 import OrderTable from "@/components/restaurant/OrderTable";
 import React from "react";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const data = await getRestaurantOrders();
   return (

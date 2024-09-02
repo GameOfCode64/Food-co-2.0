@@ -3,7 +3,7 @@ import Image from "next/image";
 import notfound from "@/public/NotFound.svg";
 import getFavorites from "@/actions/getFavorites";
 import FavoritesCard from "@/components/FavoritesCard";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const favorites = await getFavorites();
   return (

@@ -1,8 +1,6 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import Image from "next/image";
+"use client";
 import React from "react";
-import play from "@/public/play_store.png";
-import app from "@/public/app_store.png";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 interface AboutProps {
   name: string | null;

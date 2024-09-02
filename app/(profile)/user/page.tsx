@@ -1,12 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
-const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Page = () => {
   const router = useRouter();
-  router.push("/user/orders");
+  useEffect(() => {
+    router.push("/user/orders");
+  }, [router]);
+
   return <div>page</div>;
 };
 
-export default page;
+export default Page;

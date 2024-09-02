@@ -4,7 +4,7 @@ import LatestOrders from "@/components/restaurant/LatestOrders";
 import { Activity, CookingPot, WalletMinimal } from "lucide-react";
 import getRestaurantOrders from "@/actions/getRestaurantOrders";
 import { formatCurrency } from "@/lib/currencyFromate";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const restaurant = await getRestaurant();
   const orders = await getRestaurantOrders();

@@ -4,6 +4,7 @@ import app from "@/public/app_store.png";
 import Image from "next/image";
 import { Github, Linkedin } from "lucide-react";
 import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="md:px-20 px-4 mt-8 h-full mb-8">

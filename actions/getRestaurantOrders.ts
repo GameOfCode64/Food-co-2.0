@@ -1,8 +1,8 @@
 import prisma from "@/lib/db";
-import getRestaurant from "./getRestaurant";
+import getCurrentUser from "./getUser";
 
 const getRestaurantOrders = async () => {
-  const currentRes = await getRestaurant();
+  const currentRes = await getCurrentUser();
 
   if (!currentRes) {
     return null;
@@ -11,7 +11,7 @@ const getRestaurantOrders = async () => {
   try {
     const orders = await prisma.orders.findMany({
       where: {
-        userId: currentRes.ownerId,
+        userId: currentRes.id,
       },
       select: {
         id: true,

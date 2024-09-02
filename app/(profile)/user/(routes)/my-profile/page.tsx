@@ -2,7 +2,7 @@ import getCurrentUser from "@/actions/getUser";
 import ProfileCard from "@/components/ProfileCard";
 import Image from "next/image";
 import React from "react";
-
+export const dynamic = "force-dynamic";
 const page = async () => {
   const CurrentUser = await getCurrentUser();
   return (

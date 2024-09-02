@@ -28,7 +28,7 @@ interface CartItemProps {
   favoritesId: string | null;
   quantity: number;
 }
-
+export const dynamic = "force-dynamic";
 const UserCart = () => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
