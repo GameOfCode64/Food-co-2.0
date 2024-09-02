@@ -45,7 +45,7 @@ GitHub Repository: [Food&Co 2.0 GitHub Repo](https://github.com/GameOfCode64/Foo
 
 - **Node.js** (v18.x or higher)
 - **MongoDB** (or any MongoDB cloud instance)
-- **Stripe Account** (for API keys)
+- **Stripe** (for Payment)
 
 ### Installation
 
