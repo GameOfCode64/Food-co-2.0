@@ -55,21 +55,5 @@ GitHub Repository: [Food&Co 2.0 GitHub Repo](https://github.com/GameOfCode64/Foo
    git clone https://github.com/GameOfCode64/Food-co-2.0.git
    npm install
    add .env
-   # Database
-DATABASE_URL=
-
-# Auth
-NEXTAUTH_SECRET=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-
-# Payment
-STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-
-# Stroage 
-UPLOADTHING_SECRET=
-UPLOADTHING_APP_ID=
-
-npm run dev
+   npm run dev
 ```
