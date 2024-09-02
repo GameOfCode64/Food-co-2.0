@@ -33,7 +33,7 @@ GitHub Repository: [Food&Co 2.0 GitHub Repo](https://github.com/GameOfCode64/Foo
 - **TypeScript**
 - **Prisma ORM**
 - **MongoDB**
-- **Stripe API**
+- **Stripe For Payment**
 - **Tailwind CSS**
 - **Vercel (Deployment)**
 
