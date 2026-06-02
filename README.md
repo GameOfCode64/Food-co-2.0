@@ -30,6 +30,7 @@ GitHub Repository: [Food&Co 2.0 GitHub Repo](https://github.com/GameOfCode64/Foo
 ## Tech Stack
 
 - **Next.js 14**
+- **NextAuth for auth**
 - **TypeScript**
 - **Prisma ORM**
 - **MongoDB**
